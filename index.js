@@ -47,14 +47,48 @@ app.get("/api/blogs", async (req, res) => {
   res.json(blogs);
 });
 
+app.get("/api/blogs/:id", async (req, res) => {
+  const id = req.params.id;
+  const blog = await Blog.findByPk(id);
+  if (blog) {
+    res.json(blog);
+  } else {
+    res.status(404).end();
+  }
+});
+
 app.post("/api/blogs", async (req, res) => {
-  console.log(req);
+  console.log(req.body);
   try {
     const blog = await Blog.create(req.body);
     return res.json(blog);
   } catch (error) {
     return res.status(400).json({ error });
   }
+});
+
+app.put("/api/blogs/:id", async (req, res) => {
+  const id = req.params.id;
+  const blog = req.body;
+  await Blog.update(blog, {
+    where: {
+      id,
+    },
+  });
+  res.json(blog);
+});
+
+app.delete("/api/blogs/:id", async (req, res) => {
+  const id = req.params.id;
+  const blog = await Blog.findByPk(id);
+
+  if (!blog) {
+    return res.status(404).end();
+  }
+
+  blog.destroy();
+
+  res.status(204).end();
 });
 
 const printBlogs = async () => {
