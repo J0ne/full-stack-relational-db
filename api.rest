@@ -1,14 +1,17 @@
 ### GET
-GET http://localhost:3001/api/notes
+GET http://localhost:3001/api/blogs
 
 
 
 
 ### POST
-POST http://localhost:3001/api/notes
+POST http://localhost:3001/api/blogs
 content-type: application/json
 
+# author, url, title, likes
 {
-  "content": "New note 1",
-  "important": true
+  "author": "Jouni M",
+  "url": "http://www.example.com",
+  "title": "Jonen Blogi",
+  "likes": 0
 }
