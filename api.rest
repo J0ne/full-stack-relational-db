@@ -22,4 +22,31 @@ GET http://localhost:3001/api/blogs/5
 
 
 ### DELETE
-DELETE http://localhost:3001/api/blogs/3
+DELETE http://localhost:3001/api/blogs/11
+
+
+### PUT
+PUT http://localhost:3001/api/blogs/5
+content-type: application/json
+
+  {
+    "likes": 10
+  }
+
+
+### POST with invalid data
+POST http://localhost:3001/api/blogs
+content-type: application/json
+
+{
+  "author": null
+}
+
+
+### PUT without likes
+PUT http://localhost:3001/api/blogs/5
+content-type: application/json
+
+{
+  "likes": 2
+}
