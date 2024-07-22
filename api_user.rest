@@ -1,0 +1,32 @@
+
+
+### GET
+GET http://localhost:3001/api/users
+
+### POST
+POST http://localhost:3001/api/users
+content-type: application/json
+
+{
+    "username": "jouni.mannisto@gmail.com",
+    "name": "Jouni M"
+}
+
+### PUT by username
+PUT http://localhost:3001/api/users/jouni
+content-type: application/json
+
+{
+    "name": "JouniM"
+}
+
+
+
+### POST with invalid data
+POST http://localhost:3001/api/users
+content-type: application/json
+
+{
+    "username": "jouni",
+    "name": "Jouni M"
+}

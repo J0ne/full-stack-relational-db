@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const Blog = require("../models/blog");
+const User = require("../models/user");
 const { BlogValidationError } = require("../util/customError");
+const tokenExtractor = require("../middlewares/tokenExtractor");
 
 const blogFinder = async (req, res, next) => {
   req.blog = await Blog.findByPk(req.params.id);
@@ -39,7 +41,14 @@ const validateBlogForUpdate = (blog) => {
 };
 
 router.get("/", async (req, res) => {
-  const blogs = await Blog.findAll();
+  const blogs = await Blog.findAll({
+    attributes: { exclude: ["userId"] },
+    include: {
+      model: User,
+      attributes: ["name"],
+    },
+  });
+
   res.json(blogs);
 });
 
@@ -52,13 +61,18 @@ router.get("/:id", blogFinder, async (req, res) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", tokenExtractor, async (req, res, next) => {
   try {
+    // validate user
+    const user = await User.findByPk(req.decodedToken.id);
+
     const newBlog = req.body;
     validateNewBlog(newBlog);
-    const createdBlog = await Blog.create(newBlog);
+
+    const createdBlog = await Blog.create({ ...newBlog, userId: user.id });
     return res.json(createdBlog);
   } catch (error) {
+    error.source = "blog creation";
     console.log(error);
     next(error);
   }
@@ -70,7 +84,6 @@ router.put("/:id", blogFinder, async (req, res, next) => {
 
   try {
     validateBlogForUpdate(blog);
-
     await Blog.update(blog, {
       where: {
         id,
@@ -78,21 +91,28 @@ router.put("/:id", blogFinder, async (req, res, next) => {
     });
     res.status(200).send({ message: "Blog updated successfully" });
   } catch (error) {
+    error.source = "blog update";
     console.log(error);
     next(error);
   }
 });
 
-router.delete("/:id", blogFinder, async (req, res) => {
+router.delete("/:id", tokenExtractor, blogFinder, async (req, res) => {
   const blog = req.blog;
-
-  if (!blog) {
-    return res.status(404).end();
+  if (blog.userId !== req.decodedToken.id) {
+    return res.status(401).send({ error: "Unauthorized" });
   }
 
-  blog.destroy();
-
-  res.status(204).end();
+  if (blog) {
+    await blog.destroy();
+    return res
+      .status(204, {
+        message: "Blog deleted successfully",
+      })
+      .end();
+  } else {
+    return res.status(404).end();
+  }
 });
 
 const printBlogs = async () => {

@@ -1,0 +1,18 @@
+
+### LOGIN (success)
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+    "username": "jouni.mannisto@gmail.com",
+    "password": "salainen"
+}
+
+### LOGIN (fail)
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+    "username": "jouni.mannisto@gmail.com",
+    "password": "wrong one"
+}

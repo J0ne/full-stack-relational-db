@@ -1,7 +1,4 @@
 const errorHandler = (error, request, response, next) => {
-  console.error(error.message);
-  console.log(error.name);
-
   if (response.headersSent) {
     return next(error);
   }
@@ -13,7 +10,7 @@ const errorHandler = (error, request, response, next) => {
     );
     const bodyAsString = JSON.stringify(request.body);
     return response.status(400).send({
-      error: "Oh noes! Invalid data for creating new blog post" + bodyAsString,
+      error: `Error in ${error.source}: ${error.errors[0].message} for ${bodyAsString}`,
     });
   }
 
