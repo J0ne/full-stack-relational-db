@@ -2,6 +2,11 @@
 GET http://localhost:3001/api/blogs
 
 
+### GET by search string
+GET http://localhost:3001/api/blogs?search=Web Components
+
+
+
 
 
 ### POST
@@ -12,7 +17,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Impvd
 {
   "author": "Jouni M",
   "url": "http://www.example.com",
-  "title": "Jonen Blogi",
+  "title": "Use the platform!",
   "likes": 0
 }
 
