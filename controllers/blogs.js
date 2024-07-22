@@ -46,7 +46,7 @@ router.get("/", async (req, res) => {
 
   if (req.query.search) {
     where.title = {
-      [Op.like]: `%${req.query.search}%`,
+      [Op.iLike]: `%${req.query.search}%`,
     };
   }
 
