@@ -29,7 +29,7 @@ const validateNewBlog = (blog) => {
   }
 };
 
-const validateBlogForUpdate = (blog) => {
+const validateBlogDataForUpdate = (blog) => {
   console.log("Validating blog for update", blog);
   // require likes to be a set and to be number
   if (blog.likes === undefined) {
@@ -57,6 +57,11 @@ router.get("/", async (req, res) => {
     };
   }
 
+  const order = [
+    // Will escape title and validate DESC against a list of valid direction parameters
+    ["likes", "DESC"],
+  ];
+
   const blogs = await Blog.findAll({
     attributes: { exclude: ["userId"] },
     include: {
@@ -64,6 +69,7 @@ router.get("/", async (req, res) => {
       attributes: ["name"],
     },
     where,
+    order,
   });
 
   res.json(blogs);
@@ -97,11 +103,13 @@ router.post("/", tokenExtractor, async (req, res, next) => {
 
 router.put("/:id", blogFinder, async (req, res, next) => {
   const id = req.params.id;
-  const blog = req.body;
+  const blog = req.blog;
+  const data = req.body;
+  console.log("Update data", blog);
 
   try {
-    validateBlogForUpdate(blog);
-    await Blog.update(blog, {
+    validateBlogDataForUpdate(data);
+    await Blog.update(data, {
       where: {
         id,
       },
