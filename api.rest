@@ -12,12 +12,12 @@ GET http://localhost:3001/api/blogs?search=jone
 ### POST
 POST http://localhost:3001/api/blogs
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvdW5pLm1hbm5pc3RvQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MjE2MzU2NDN9.3IISe0c0BRsk5YR8dJPEINN67XV--97VgNxU-Hzt_fg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvdW5pLm1hbm5pc3RvQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MjE3MjgyNTF9.gMj6nDhdnvKUmN-nTDrXpa0kvpLuqEOBPcGCPUms4AQ
 
 {
-  "author": "Teppo Testaaja",
+  "author": "Jouni Männistö",
   "url": "http://www.example.com",
-  "title": "Use the platform!",
+  "title": "Third Tech blog",
   "likes": 0
 }
 
@@ -29,7 +29,7 @@ GET http://localhost:3001/api/blogs/5
 ### DELETE
 DELETE http://localhost:3001/api/blogs/4
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvdW5pLm1hbm5pc3RvQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MjE2MzU2NDN9.3IISe0c0BRsk5YR8dJPEINN67XV--97VgNxU-Hzt_fg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvdW5pLm1hbm5pc3RvQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MjE3MjgyNTF9.gMj6nDhdnvKUmN-nTDrXpa0kvpLuqEOBPcGCPUms4AQ
 
 
 ### PUT
