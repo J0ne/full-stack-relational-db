@@ -30,3 +30,12 @@ content-type: application/json
     "username": "jouni",
     "name": "Jouni M"
 }
+
+### POST another user
+POST http://localhost:3001/api/users
+content-type: application/json
+
+{
+    "username": "teppo@example.com",
+    "name": "Teppo Testaaja M"
+}
