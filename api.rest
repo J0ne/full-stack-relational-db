@@ -15,7 +15,7 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvdW5pLm1hbm5pc3RvQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MjE2MzU2NDN9.3IISe0c0BRsk5YR8dJPEINN67XV--97VgNxU-Hzt_fg
 
 {
-  "author": "Jone",
+  "author": "Teppo Testaaja",
   "url": "http://www.example.com",
   "title": "Use the platform!",
   "likes": 0
@@ -51,9 +51,9 @@ content-type: application/json
 
 
 ### PUT without likes
-PUT http://localhost:3001/api/blogs/7
+PUT http://localhost:3001/api/blogs/9
 content-type: application/json
 
 {
-  "likes": 4
+  "likes": 20
 }
