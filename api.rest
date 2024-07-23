@@ -51,9 +51,9 @@ content-type: application/json
 
 
 ### PUT without likes
-PUT http://localhost:3001/api/blogs/9
+PUT http://localhost:3001/api/blogs/7
 content-type: application/json
 
 {
-  "likes": 5
+  "likes": 4
 }
