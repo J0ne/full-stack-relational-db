@@ -5,7 +5,7 @@ GET http://localhost:3001/api/users
 
 
 ### GET by id
-GET http://localhost:3001/api/users/1
+GET http://localhost:3001/api/users/2?read=false
 
 
 ### POST
