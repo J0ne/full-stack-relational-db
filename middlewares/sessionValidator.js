@@ -17,7 +17,7 @@ const sessionValidator = async (req, res, next) => {
         .json({ error: "Invalid session or session expired" });
     }
 
-    // Query the user associated with the session
+    // find the user
     const user = await User.findOne({
       where: { id: req.decodedToken.id },
     });
