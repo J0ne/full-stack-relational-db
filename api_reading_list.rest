@@ -1,0 +1,12 @@
+### GET
+GET http://localhost:3001/api/readinglist
+
+
+### POST new reading list item
+POST http://localhost:3001/api/readinglist
+content-type: application/json
+
+{
+  "blogId": 1,
+  "userId": 2
+}

@@ -3,13 +3,18 @@
 ### GET
 GET http://localhost:3001/api/users
 
+
+### GET by id
+GET http://localhost:3001/api/users/2
+
+
 ### POST
 POST http://localhost:3001/api/users
 content-type: application/json
 
 {
     "username": "jouni.mannisto@gmail.com",
-    "name": "Jouni M"
+    "name": "Teppo T"
 }
 
 ### PUT by username

@@ -14,10 +14,12 @@ ReadingList.init(
     blogId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: { model: "blogs", key: "id" },
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: { model: "users", key: "id" },
     },
     read: {
       type: DataTypes.BOOLEAN,
@@ -26,9 +28,11 @@ ReadingList.init(
     },
   },
   {
+    tableName: "reading_list",
     sequelize,
     underscored: true,
-    modelName: "ReadingList",
+    timestamps: false,
+    modelName: "readingList",
   }
 );
 
