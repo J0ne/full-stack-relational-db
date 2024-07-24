@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { Blog } = require("../models/index.js");
 const { User } = require("../models/index.js");
 const { ReadingList } = require("../models/index.js");
+const Sequelize = require("sequelize");
 
 console.log(User);
 
@@ -27,7 +28,8 @@ router.post("/", async (req, res, next) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const user = await User.findByPk(req.params.id, {
+  const userId = req.params.id;
+  const user = await User.findByPk(userId, {
     attributes: { exclude: [""] },
     include: [
       {
@@ -35,6 +37,15 @@ router.get("/:id", async (req, res) => {
         as: "readings",
         attributes: { exclude: ["userId"] },
         through: { attributes: [] },
+        include: [
+          {
+            model: ReadingList,
+            attributes: { exclude: ["blogId", "userId"] },
+            where: {
+              userId: userId,
+            },
+          },
+        ],
       },
     ],
   });
