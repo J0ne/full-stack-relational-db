@@ -1,12 +1,16 @@
 ### GET
-GET http://localhost:3001/api/readinglist
+GET http://localhost:3001/api/readinglists
 
 
 ### POST new reading list item
-POST http://localhost:3001/api/readinglist
+POST http://localhost:3001/api/readinglists
 content-type: application/json
 
 {
   "blogId": 1,
   "userId": 2
 }
+
+
+### PUT
+PUT http://localhost:3001/api/readinglists/1

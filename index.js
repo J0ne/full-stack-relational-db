@@ -20,7 +20,7 @@ app.use("/api/blogs", blogsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/authors", authorsRouter);
-app.use("/api/readinglist", readingListRouter);
+app.use("/api/readinglists", readingListRouter);
 
 app.use(errorHandler);
 
