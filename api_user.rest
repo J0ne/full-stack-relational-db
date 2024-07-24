@@ -13,8 +13,8 @@ POST http://localhost:3001/api/users
 content-type: application/json
 
 {
-    "username": "jouni.mannisto@gmail.com",
-    "name": "Teppo T"
+    "username": "teijo.testaaja@example.com",
+    "name": "Teppo Testaaja"
 }
 
 ### PUT by username

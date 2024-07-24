@@ -1,6 +1,7 @@
 const Blog = require("./blog");
 const User = require("./user");
 const ReadingList = require("./readingList");
+const Session = require("./session");
 
 User.hasMany(Blog);
 Blog.belongsTo(User);
@@ -13,5 +14,7 @@ ReadingList.belongsTo(User);
 
 Blog.hasMany(ReadingList);
 ReadingList.belongsTo(Blog);
+
+User.hasOne(Session);
 
 module.exports = { Blog, User, ReadingList };

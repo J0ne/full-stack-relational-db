@@ -3,6 +3,7 @@ const Blog = require("../models/blog");
 const User = require("../models/user");
 const { BlogValidationError } = require("../util/customError");
 const tokenExtractor = require("../middlewares/tokenExtractor");
+const sessionValidator = require("../middlewares/sessionValidator");
 const { Op } = require("sequelize");
 
 const blogFinder = async (req, res, next) => {
@@ -84,7 +85,7 @@ router.get("/:id", blogFinder, async (req, res) => {
   }
 });
 
-router.post("/", tokenExtractor, async (req, res, next) => {
+router.post("/", tokenExtractor, sessionValidator, async (req, res, next) => {
   try {
     // validate user
     const user = await User.findByPk(req.decodedToken.id);
@@ -101,44 +102,56 @@ router.post("/", tokenExtractor, async (req, res, next) => {
   }
 });
 
-router.put("/:id", blogFinder, async (req, res, next) => {
-  const id = req.params.id;
-  const blog = req.blog;
-  const data = req.body;
-  console.log("Update data", blog);
+router.put(
+  "/:id",
+  blogFinder,
+  tokenExtractor,
+  sessionValidator,
+  async (req, res, next) => {
+    const id = req.params.id;
+    const blog = req.blog;
+    const data = req.body;
+    console.log("Update data", blog);
 
-  try {
-    validateBlogDataForUpdate(data);
-    await Blog.update(data, {
-      where: {
-        id,
-      },
-    });
-    res.status(200).send({ message: "Blog updated successfully" });
-  } catch (error) {
-    error.source = "blog update";
-    console.log(error);
-    next(error);
+    try {
+      validateBlogDataForUpdate(data);
+      await Blog.update(data, {
+        where: {
+          id,
+        },
+      });
+      res.status(200).send({ message: "Blog updated successfully" });
+    } catch (error) {
+      error.source = "blog update";
+      console.log(error);
+      next(error);
+    }
   }
-});
+);
 
-router.delete("/:id", tokenExtractor, blogFinder, async (req, res) => {
-  const blog = req.blog;
-  if (blog.userId !== req.decodedToken.id) {
-    return res.status(401).send({ error: "Unauthorized" });
-  }
+router.delete(
+  "/:id",
+  tokenExtractor,
+  sessionValidator,
+  blogFinder,
+  async (req, res) => {
+    const blog = req.blog;
+    if (blog.userId !== req.decodedToken.id) {
+      return res.status(401).send({ error: "Unauthorized" });
+    }
 
-  if (blog) {
-    await blog.destroy();
-    return res
-      .status(204, {
-        message: "Blog deleted successfully",
-      })
-      .end();
-  } else {
-    return res.status(404).end();
+    if (blog) {
+      await blog.destroy();
+      return res
+        .status(204, {
+          message: "Blog deleted successfully",
+        })
+        .end();
+    } else {
+      return res.status(404).end();
+    }
   }
-});
+);
 
 const printBlogs = async () => {
   const blogs = await Blog.findAll();

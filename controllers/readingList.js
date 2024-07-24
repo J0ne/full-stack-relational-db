@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const tokenExtractor = require("../middlewares/tokenExtractor");
+const sessionValidator = require("../middlewares/sessionValidator");
 const User = require("../models/user");
 const ReadingList = require("../models/readingList");
 const { BlogValidationError } = require("../util/customError");
@@ -21,7 +22,7 @@ router.post("/", async (request, response) => {
   response.json(readingList);
 });
 
-router.put("/:id", tokenExtractor, async (req, res, next) => {
+router.put("/:id", tokenExtractor, sessionValidator, async (req, res, next) => {
   const user = await User.findByPk(req.decodedToken.id);
 
   const id = req.params.id;
